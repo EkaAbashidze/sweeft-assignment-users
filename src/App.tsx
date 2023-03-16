@@ -5,7 +5,7 @@ import Landing from "./components/Landing";
 function App() {
   return (
     <Router>
-      <div>
+      <div >
 
         <Routes>
           <Route path="/" element={<Landing/>} />
