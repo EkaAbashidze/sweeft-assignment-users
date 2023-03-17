@@ -4,6 +4,7 @@ import axios from "axios";
 import UserCard from "./UserCard";
 
 export default function UserPage() {
+  
   interface List {
     id: number;
     name: string;
@@ -90,6 +91,7 @@ export default function UserPage() {
       {/* ჩასამატებელია მთავარ დივში border-#ccc border border-solid */}
 
       <UserCard />
+      <h1 className="text-2xl font-bold" >Friends:</h1>
       <ul className="flex flex-wrap max-w-7xl mx-auto justify-center ">
         {friends.list.map((item, idx) => (
           <Card
