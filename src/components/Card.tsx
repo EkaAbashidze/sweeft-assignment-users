@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Avatar from "./images/user.jpg";
-import axios from "axios";
+import React from "react";
 
-export default function Card({prefix, name, lastName, title, image}) {
-
-
-
+export default function Card({ prefix, name, lastName, title, image }) {
   return (
     <li className="w-[280px] h-[265px] m-[10px] border-[#ccc] border-solid border cursor-pointer">
       <img className="w-[280px] h-[210px]" src={image} alt="" />

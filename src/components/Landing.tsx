@@ -3,6 +3,7 @@ import Card from "./Card";
 import axios from "axios";
 
 export default function Landing() {
+  
   interface List {
     id: number;
     name: string;
@@ -59,6 +60,7 @@ export default function Landing() {
 
   useEffect(() => {
     const handleScroll = async function () {
+      console.log(data);
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
         const nextPage = data.pagination.nextPage;
         const result = await axios.get(
