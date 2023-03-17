@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import axios from "axios";
+import UserCard from "./UserCard";
 
 export default function UserPage() {
   interface List {
@@ -84,16 +85,22 @@ export default function UserPage() {
   });
 
   return (
-    <ul className="flex flex-wrap max-w-7xl mx-auto justify-center ">
-      {friends.list.map((item, idx) => (
-        <Card
-          prefix={friends.list[idx].prefix}
-          name={friends.list[idx].name}
-          lastName={friends.list[idx].lastName}
-          title={friends.list[idx].title}
-          image={friends.list[idx].imageUrl}
-        />
-      ))}
-    </ul>
+    <div
+      className="flex flex-wrap max-w-7xl mx-auto justify-center ">
+      {/* ჩასამატებელია მთავარ დივში border-#ccc border border-solid */}
+
+      <UserCard />
+      <ul className="flex flex-wrap max-w-7xl mx-auto justify-center ">
+        {friends.list.map((item, idx) => (
+          <Card
+            prefix={friends.list[idx].prefix}
+            name={friends.list[idx].name}
+            lastName={friends.list[idx].lastName}
+            title={friends.list[idx].title}
+            image={friends.list[idx].imageUrl}
+          />
+        ))}
+      </ul>
+    </div>
   );
 }
