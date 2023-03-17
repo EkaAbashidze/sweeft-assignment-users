@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import axios from "axios";
 import UserCard from "./UserCard";
+import { Link, useParams } from "react-router-dom";
 
 export default function UserPage() {
-  
+  const { id } = useParams();
+
   interface List {
     id: number;
     name: string;
@@ -50,14 +52,14 @@ export default function UserPage() {
   useEffect(() => {
     const fetchData = async function () {
       const result = await axios.get(
-        `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/1/friends/${friends.pagination.current}/20`
+        `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${id}/friends/${friends.pagination.current}/20`
       );
       setFriends(result.data);
       console.log(result.data);
       console.log("data retrieved 🥳");
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const handleScroll = async function () {
@@ -65,7 +67,7 @@ export default function UserPage() {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
         const nextPage = friends.pagination.nextPage;
         const result = await axios.get(
-          `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/1/friends/${nextPage}/20`
+          `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${id}/friends/${nextPage}/20`
         );
         setFriends((prevData) => ({
           ...prevData,
@@ -86,21 +88,22 @@ export default function UserPage() {
   });
 
   return (
-    <div
-      className="flex flex-wrap max-w-7xl mx-auto justify-center ">
-      {/* ჩასამატებელია მთავარ დივში border-#ccc border border-solid */}
+    <div className="flex flex-wrap max-w-7xl mx-auto justify-center ">
+      {/* border-#ccc border border-solid */}
 
       <UserCard />
-      <h1 className="text-2xl font-bold" >Friends:</h1>
+      {/* <h1 className="text-2xl font-bold" >Friends:</h1> */}
       <ul className="flex flex-wrap max-w-7xl mx-auto justify-center ">
         {friends.list.map((item, idx) => (
-          <Card
-            prefix={friends.list[idx].prefix}
-            name={friends.list[idx].name}
-            lastName={friends.list[idx].lastName}
-            title={friends.list[idx].title}
-            image={friends.list[idx].imageUrl}
-          />
+          <Link to={`/${friends.list[idx].id}`}>
+            <Card
+              prefix={friends.list[idx].prefix}
+              name={friends.list[idx].name}
+              lastName={friends.list[idx].lastName}
+              title={friends.list[idx].title}
+              image={friends.list[idx].imageUrl}
+            />
+          </Link>
         ))}
       </ul>
     </div>

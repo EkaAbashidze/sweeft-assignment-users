@@ -6,14 +6,11 @@ import UserPage from "./components/UserPage";
 function App() {
   return (
     <Router>
-      <div >
-
+      <div>
         <Routes>
-          <Route path="/" element={<Landing/>} />
-          <Route path="/userpage" element={<UserPage/>} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/:id" element={<UserPage />} />
         </Routes>
-
-
       </div>
     </Router>
   );

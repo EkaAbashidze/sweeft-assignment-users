@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Landing() {
   interface List {
@@ -86,13 +87,15 @@ export default function Landing() {
   return (
     <ul className="flex flex-wrap max-w-7xl mx-auto justify-center ">
       {data.list.map((item, idx) => (
-        <Card
-          prefix={data.list[idx].prefix}
-          name={data.list[idx].name}
-          lastName={data.list[idx].lastName}
-          title={data.list[idx].title}
-          image={data.list[idx].imageUrl}
-        />
+        <Link to={`/${data.list[idx].id}`}>
+          <Card
+            prefix={data.list[idx].prefix}
+            name={data.list[idx].name}
+            lastName={data.list[idx].lastName}
+            title={data.list[idx].title}
+            image={data.list[idx].imageUrl}
+          />
+        </Link>
       ))}
     </ul>
   );
