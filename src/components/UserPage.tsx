@@ -48,6 +48,7 @@ export default function UserPage() {
   };
 
   const [friends, setFriends] = useState(USER_FRIENDS);
+  const [history, setHistory] = useState([])
 
   useEffect(() => {
     const fetchData = async function () {
@@ -55,7 +56,7 @@ export default function UserPage() {
         `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${id}/friends/${friends.pagination.current}/20`
       );
       setFriends(result.data);
-      console.log(result.data);
+      console.log("MY RESULT ✅: ",result.data);
       console.log("data retrieved 🥳");
     };
     fetchData();
@@ -76,7 +77,8 @@ export default function UserPage() {
             ...result.data.pagination,
           },
           list: [...prevData.list, ...result.data.list],
-        }));
+        }))
+          
       }
     };
 
@@ -91,11 +93,42 @@ export default function UserPage() {
     <div className="flex flex-wrap max-w-7xl mx-auto justify-center ">
       {/* border-#ccc border border-solid */}
 
-      <UserCard />
-      {/* <h1 className="text-2xl font-bold" >Friends:</h1> */}
+      
+
+      <UserCard setHistory={setHistory} />
+      
+
+
+      <div className="flex flex-col w-7xl text-start" >
+
+{/* //// OUTPUT AND LINK */}
+
+      <div className="flex my-[20px]">
+        {history.map((viewedUser) => (
+          <Link to={`/${viewedUser.id}`}>
+            <p>
+              {`${viewedUser.prefix} ${viewedUser.name} ${viewedUser.lastName}, `}
+            </p>
+          </Link>
+        ))}
+      </div>
+
+
+      <h1 className="flex text-2xl font-bold mb-[20px]" >Friends:</h1>
+
+
+      </div>
+
       <ul className="flex flex-wrap max-w-7xl mx-auto justify-center ">
         {friends.list.map((item, idx) => (
-          <Link to={`/${friends.list[idx].id}`}>
+
+      <Link
+            to={`/${friends.list[idx].id}`}
+            
+            /// CHANGING ARRAY
+      >
+
+
             <Card
               prefix={friends.list[idx].prefix}
               name={friends.list[idx].name}
