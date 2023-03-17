@@ -48,7 +48,7 @@ export default function UserPage() {
   useEffect(() => {
     const fetchData = async function () {
       const result = await axios.get(
-        "http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/1/friends/1/20"
+        `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/1/friends/${friends.pagination.current}/20`
       );
       setFriends(result.data);
       console.log(result.data);
@@ -56,6 +56,32 @@ export default function UserPage() {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const handleScroll = async function () {
+      console.log(friends);
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        const nextPage = friends.pagination.nextPage;
+        const result = await axios.get(
+          `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/1/friends/${nextPage}/20`
+        );
+        setFriends((prevData) => ({
+          ...prevData,
+          pagination: {
+            ...prevData.pagination,
+            ...result.data.pagination,
+          },
+          list: [...prevData.list, ...result.data.list],
+        }));
+      }
+    };
+
+    window.onscroll = handleScroll;
+
+    return () => {
+      window.onscroll = null;
+    };
+  });
 
   return (
     <ul className="flex flex-wrap max-w-7xl mx-auto justify-center ">

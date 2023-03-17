@@ -3,7 +3,6 @@ import Card from "./Card";
 import axios from "axios";
 
 export default function Landing() {
-  
   interface List {
     id: number;
     name: string;
@@ -49,7 +48,7 @@ export default function Landing() {
   useEffect(() => {
     const fetchData = async function () {
       const result = await axios.get(
-        "http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/1/20"
+        `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${data.pagination.current}/20`
       );
       setData(result.data);
       console.log(data);
