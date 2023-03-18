@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-export default function UserCard({setHistory}) {
+export default function UserCard({ setHistory }) {
   const { id } = useParams();
 
   type FormData = {
@@ -63,11 +63,7 @@ export default function UserCard({setHistory}) {
         `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${id}`
       );
       setUser(result.data);
-      setHistory((prevHistory) => [
-      ...prevHistory,
-      result.data
-    ]
-    )
+      setHistory((prevHistory) => [...prevHistory, result.data]);
       console.log("NEW DATA RECEIVED: ", result.data);
     };
     fetchData();
